@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+  <rosparam command="load" file="$(find diagnostic_updater)/src/updaters_params.yaml" />
+
+  <node pkg="diagnostic_updater" type="imu_updater_node" name="imu_updater">
+    <param name="diagnostic_period" value="0.05"/>
+  </node>
+  
+</launch>
+
