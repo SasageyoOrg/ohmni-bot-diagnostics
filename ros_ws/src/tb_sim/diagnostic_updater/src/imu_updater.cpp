@@ -4,27 +4,28 @@ int main(int argc, char **argv)
 {
   ros::init(argc, argv, "imu_updater"); //Ros initialization function.
   ros::NodeHandle nh; //Construct a NodeHandle Class. This class is used for writing nodes. 
-  
   diagnostic_updater::Updater imuUpdater; //Construct an updater class.
 
-  imuUpdater.setHardwareID("/tb_sim/imu");
+  nh.getParam("imu_av_min", imu_av_min); //Get parameters from .yaml file and store them into indicated variables.
+  nh.getParam("imu_av_max", imu_av_max);
+
+	imuUpdater.setHardwareID("/tb_sim/imu");
 
   /* Subscribing to /tb_sim/imu topic
-     Message queue = 1000
-     Callback function = imu_callback
+	Message queue = 1000
+	Callback function = imu_callback
   */
   ros::Subscriber subImu = nh.subscribe("/tb_sim/imu", 1000, imu_callback);
 
   // Creating tasks using functions with FunctionDiagnosticTask
   diagnostic_updater::FunctionDiagnosticTask av_x("Chek av x",
-       boost::bind(&check_av_x, boost::placeholders::_1));
+    boost::bind(&check_av_x, boost::placeholders::_1));
 
   diagnostic_updater::FunctionDiagnosticTask av_y("Chek av y",
-       boost::bind(&check_av_y, boost::placeholders::_1));
+    boost::bind(&check_av_y, boost::placeholders::_1));
 
   diagnostic_updater::FunctionDiagnosticTask av_z("Chek av z",
-       boost::bind(&check_av_z, boost::placeholders::_1));
-       
+    boost::bind(&check_av_z, boost::placeholders::_1));
   diagnostic_updater::CompositeDiagnosticTask bounds("Angual velocity bounds check");
 
   //Creates a new task, registers the task, and returns the instance.
@@ -36,9 +37,7 @@ int main(int argc, char **argv)
 
 
   imuUpdater.broadcast(0, "Initializing IMU updater");
- 
   imuUpdater.force_update();
- 
 
   while (nh.ok())
   {

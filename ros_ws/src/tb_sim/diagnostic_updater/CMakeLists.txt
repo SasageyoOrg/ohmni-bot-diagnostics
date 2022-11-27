@@ -26,12 +26,12 @@ add_dependencies(${PROJECT_NAME}_imu_updater sensor_msgs_generate_messages_cpp)
 # gtest could be included in ${catkin_INCLUDE_DIRS}, prepend local gtest include directory so it's searched first
 #include_directories(BEFORE ${LOCAL_GTEST_DIR}/include)
 
-if(CATKIN_ENABLE_TESTING)
-  find_package(rostest REQUIRED)
-  add_rostest_gtest(diagnostic_updater_test test/diagnostic_updater_test.xml test/diagnostic_updater_test.cpp)
-  add_rostest(test/diagnostic_updater_fast_test.xml)
-  target_link_libraries(diagnostic_updater_test ${catkin_LIBRARIES} ${PROJECT_NAME})
-endif()
+# if(CATKIN_ENABLE_TESTING)
+#   find_package(rostest REQUIRED)
+#   add_rostest_gtest(diagnostic_updater_test test/diagnostic_updater_test.xml test/diagnostic_updater_test.cpp)
+#   add_rostest(test/diagnostic_updater_fast_test.xml)
+#   target_link_libraries(diagnostic_updater_test ${catkin_LIBRARIES} ${PROJECT_NAME})
+# endif()
 
 install(DIRECTORY include/${PROJECT_NAME}/
         DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}

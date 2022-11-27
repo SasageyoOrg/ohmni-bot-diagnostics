@@ -12,8 +12,8 @@ using namespace diagnostic_updater;
 float av_x;
 float av_y;
 float av_z;
-float imu_av_min = 0.01;
-float imu_av_max = 1;
+float imu_av_min;
+float imu_av_max;
 
 
 // Callback function
