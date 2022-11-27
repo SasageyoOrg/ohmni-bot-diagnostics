@@ -1,9 +1,7 @@
 #include <diagnostic_updater/diagnostic_updater.h>
 #include <std_msgs/Bool.h>
 #include <diagnostic_updater/publisher.h>
-#include <sensor_msgs/Imu.h> //This is a message to hold data from an IMU
 
-// ERROR defined in windows.h causes name collision, undefine the macro to fix the issue
 #ifdef ERROR
 #undef ERROR
 #endif
@@ -16,7 +14,7 @@ float imu_av_min;
 float imu_av_max;
 
 
-// Callback function
+// Callback function, runed
 void imu_callback(const sensor_msgs::Imu::ConstPtr& msg)
 {
   av_x = msg->angular_velocity.x;
@@ -24,8 +22,11 @@ void imu_callback(const sensor_msgs::Imu::ConstPtr& msg)
   av_z = msg->angular_velocity.z;
 }
 
-/* Functions used to create DiagnosticTasks
-   Monitoring angular velocity values and checking if are out of range */ 
+/* 
+  Functions used to create DiagnosticTasks
+  Monitoring angular velocity values and checking if are out of range
+  Publish messages on /diagnostic topic (the aggregator will read from this topic)
+*/ 
 
 void check_av_x(diagnostic_updater::DiagnosticStatusWrapper &stat)
 {  
