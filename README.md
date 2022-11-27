@@ -18,12 +18,13 @@ ROS Diagnostics based monitoring system for Ohmni telepresence robot
 3. Run diagnostic updater in a new console tab/window
     ```
     source devel/setup.bash
-    roslaunch gazebo_environment empty.launch
+    roslaunch diagnostic_updater updaters_launcher.launch 
+
     ```
 4. Run diagnostic aggregator in a new console tab/window
     ```
     source devel/setup.bash
-    roslaunch gazebo_environment empty.launch
+    roslaunch diagnostic_aggregator aggregator_launcher.launch
     ```
 
 5. Run the monitor with
