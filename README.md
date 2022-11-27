@@ -45,91 +45,36 @@ ROS Diagnostics based monitoring system for Ohmni telepresence robot
 
 # 🗂 Project Topology <a name="project-topology"></a>
 ```
-.
-└── src
-    └── tb_sim
-        ├── diagnostic_aggregator
-        │   ├── include
-        │   │   └── diagnostic_aggregator
-        │   ├── launch
-        │   │   └── yamls
-        │   └── src
-        ├── diagnostic_updater
-        │   ├── include
-        │   │   └── diagnostic_updater
-        │   ├── launch
-        │   └── src
-        │       └── diagnostic_updater
-        ├── gazebo_environment
-        │   ├── launch
-        │   ├── models
-        │   │   ├── furniture
-        │   │   │   ├── chair_1
-        │   │   │   │   ├── materials
-        │   │   │   │   │   ├── scripts
-        │   │   │   │   │   └── textures
-        │   │   │   │   └── meshes
-        │   │   │   ├── desk_brown
-        │   │   │   │   ├── materials
-        │   │   │   │   │   ├── scripts
-        │   │   │   │   │   └── textures
-        │   │   │   │   └── meshes
-        │   │   │   ├── human_female_1
-        │   │   │   │   ├── materials
-        │   │   │   │   │   ├── scripts
-        │   │   │   │   │   └── textures
-        │   │   │   │   └── meshes
-        │   │   │   ├── kitchen_chair
-        │   │   │   │   └── meshes
-        │   │   │   ├── labtop_mac_1
-        │   │   │   │   ├── materials
-        │   │   │   │   │   ├── scripts
-        │   │   │   │   │   └── textures
-        │   │   │   │   └── meshes
-        │   │   │   ├── recycle_bin_green
-        │   │   │   │   └── meshes
-        │   │   │   ├── sofa_set_1
-        │   │   │   │   ├── materials
-        │   │   │   │   │   ├── scripts
-        │   │   │   │   │   └── textures
-        │   │   │   │   └── meshes
-        │   │   │   └── table_conference_2
-        │   │   │       ├── materials
-        │   │   │       │   ├── scripts
-        │   │   │       │   └── textures
-        │   │   │       └── meshes
-        │   │   ├── kolvn_office_base
-        │   │   │   └── blender_model
-        │   │   │       └── texture
-        │   │   ├── obstacles
-        │   │   │   ├── wood_cube_10cm
-        │   │   │   ├── wood_cube_2_5cm
-        │   │   │   ├── wood_cube_5cm
-        │   │   │   ├── wooden_board
-        │   │   │   └── wooden_case
-        │   │   └── willowgarage
-        │   │       ├── materials
-        │   │       │   └── textures
-        │   │       └── meshes
-        │   └── worlds
-        │       └── obstacle_test
-        ├── tb_description
-        │   ├── launch
-        │   ├── meshes
-        │   ├── rviz
-        │   └── urdf
-        ├── tb_gazebo
-        │   ├── launch
-        │   ├── plugins
-        │   └── rviz
-        ├── tb_gazebo_plugins
-        │   ├── include
-        │   │   └── tb_gazebo_plugins
-        │   └── src
-        └── tb_teleop
-            └── launch
+src
+└── tb_sim
+    ├── diagnostic_aggregator
+    │   ├── include
+    │   ├── launch
+    │   └── src
+    ├── diagnostic_updater
+    │   ├── include
+    │   ├── launch
+    │   └── src
+    ├── gazebo_environment
+    │   ├── launch
+    │   ├── models
+    │   └── worlds
+    ├── tb_description
+    │   ├── launch
+    │   ├── meshes
+    │   ├── rviz
+    │   └── urdf
+    ├── tb_gazebo
+    │   ├── launch
+    │   ├── plugins
+    │   └── rviz
+    ├── tb_gazebo_plugins
+    │   ├── include
+    │   └── src
+    └── tb_teleop
+        └── launch
 
-82 directories
+27 directories
 
 ```
 
