@@ -1,7 +1,7 @@
 #include <diagnostic_updater/diagnostic_updater.h>
 #include <std_msgs/Bool.h>
 #include <diagnostic_updater/publisher.h>
-
+#include <sensor_msgs/Imu.h>
 #ifdef ERROR
 #undef ERROR
 #endif
