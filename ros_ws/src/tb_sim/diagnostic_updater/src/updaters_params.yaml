@@ -1,2 +1,5 @@
 imu_av_max: 1.0
-imu_av_min: 0.0001
+imu_av_min: 0.01
+
+imu_la_max: 1.0
+imu_la_min: 0.01
