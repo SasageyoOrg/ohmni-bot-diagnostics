@@ -33,7 +33,7 @@ int main(int argc, char **argv)
   diagnostic_updater::FunctionDiagnosticTask av_z("Check av z",
     boost::bind(&check_av_z, boost::placeholders::_1));
 
-// Linear acceleration
+  // Linear acceleration
   diagnostic_updater::FunctionDiagnosticTask la_x("Check la x",
     boost::bind(&check_la_x, boost::placeholders::_1));
 
@@ -45,17 +45,28 @@ int main(int argc, char **argv)
     
   diagnostic_updater::CompositeDiagnosticTask bounds("IMU bounds check");
 
-  //Creates a new task, registers the task, and returns the instance.
-  bounds.addTask(&av_x);
-  bounds.addTask(&av_y);
-  bounds.addTask(&av_z);
+  // wip
+  diagnostic_updater::FunctionDiagnosticTask pitch("Pitch",
+    boost::bind(&check_pitch, boost::placeholders::_1));
 
-  bounds.addTask(&la_x);
-  bounds.addTask(&la_y);
-  bounds.addTask(&la_z);
+  diagnostic_updater::FunctionDiagnosticTask roll("Roll",
+    boost::bind(&check_roll, boost::placeholders::_1));
+
+  //Creates a new task, registers the task, and returns the instance.
+  // bounds.addTask(&av_x);
+  // bounds.addTask(&av_y);
+  // bounds.addTask(&av_z);
+
+  // bounds.addTask(&la_x);
+  // bounds.addTask(&la_y);
+  // bounds.addTask(&la_z);
+
+  // wip
+  bounds.addTask(&pitch);
+  bounds.addTask(&roll);
+
   //Add the CompositeDiagnosticTask to our Updater.
   imuUpdater.add(bounds);
-
 
   imuUpdater.broadcast(0, "Initializing IMU updater");
   imuUpdater.force_update();

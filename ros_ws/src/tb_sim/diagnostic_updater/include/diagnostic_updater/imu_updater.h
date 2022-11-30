@@ -7,6 +7,8 @@
 #endif
 using namespace diagnostic_updater;
 
+#define PI 3.141593
+
 float av_x;
 float av_y;
 float av_z;
@@ -21,6 +23,8 @@ float imu_av_max;
 float imu_la_min;
 float imu_la_max;
 
+int pitch;
+int roll;
 
 // Callback function
 void imu_callback(const sensor_msgs::Imu::ConstPtr& msg)
@@ -112,3 +116,43 @@ void check_la_z(diagnostic_updater::DiagnosticStatusWrapper &stat)
     stat.summaryf(diagnostic_msgs::DiagnosticStatus::WARN, "linear acceleration z-axis: Too low [%f]", la_z);
   stat.add("Top-Side Margin z", 10 - la_z);
 }
+
+/* 
+  WIP
+  Getting Pitch and Roll from Acceleromter data
+*/ 
+
+// source 1: https://wiki.dfrobot.com/How_to_Use_a_Three-Axis_Accelerometer_for_Tilt_Sensing
+// source 2: https://engineering.stackexchange.com/questions/3348/calculating-pitch-yaw-and-roll-from-mag-acc-and-gyro-data
+
+void check_pitch(diagnostic_updater::DiagnosticStatusWrapper &stat)
+{  
+  pitch = atan2((-la_x) , sqrt(la_y * la_y + la_z * la_z)) * 57.3;
+
+  // ranges: [-40, +40] ° OK 
+  if(pitch < -40) 
+    stat.summaryf(diagnostic_msgs::DiagnosticStatus::WARN, "PITCH: TOO LOW [%d]", pitch);
+  else if(pitch > 40) 
+    stat.summaryf(diagnostic_msgs::DiagnosticStatus::WARN, "PITCH: TOO HIGH [%d]", pitch);
+  else
+    stat.summaryf(diagnostic_msgs::DiagnosticStatus::OK, "PITCH: OK [%d]", pitch);
+
+  stat.add("pitch", pitch);
+}
+
+void check_roll(diagnostic_updater::DiagnosticStatusWrapper &stat)
+{  
+  roll = atan2(la_y , la_z) * 57.3;
+  
+  // ranges: [-50, +50] ° OK 
+  if(roll < -50) 
+    stat.summaryf(diagnostic_msgs::DiagnosticStatus::WARN, "ROLL: TOO LOW [%d]", roll);
+  else if(roll > 50) 
+    stat.summaryf(diagnostic_msgs::DiagnosticStatus::WARN, "ROLL: TOO HIGH [%d]", roll);
+  else
+    stat.summaryf(diagnostic_msgs::DiagnosticStatus::OK, "ROLL: OK [%d]", roll);
+
+  stat.add("roll", roll);
+}
+
+
