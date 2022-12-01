@@ -21,5 +21,4 @@ gnome-terminal --tab --title=DiagnosticAggregator -- $SHELL -c "source devel/set
 sleep 1
 
 # run rqt_robot_monitor
-gnome-terminal --tab --title=RqtRobotMonitor -- $SHELL -c "rosrun rqt_robot_monitor rqt_robot_monitor; bash"
-
+gnome-terminal --tab --title=RqtRobotMonitor -- $SHELL -c "rosrun rqt_robot_monitor rqt_robot_monitor"

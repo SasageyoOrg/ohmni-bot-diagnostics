@@ -1,5 +1,5 @@
-imu_av_max: 1.0
-imu_av_min: 0.01
+imu_pitch_max: 40
+imu_pitch_min: -40
 
-imu_la_max: 1.0
-imu_la_min: 0.01
+imu_roll_max: 30
+imu_roll_min: -30
