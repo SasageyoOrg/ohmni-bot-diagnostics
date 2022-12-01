@@ -13,6 +13,8 @@ catkin_package(CATKIN_DEPENDS diagnostic_msgs roscpp std_msgs
 
 include_directories(include ${catkin_INCLUDE_DIRS})
 
+
+# IMU UPDATER NODE
 add_executable(${PROJECT_NAME}_imu_updater src/imu_updater.cpp )
 add_library(${PROJECT_NAME}
   src/timestamp_status.cpp)
@@ -20,6 +22,14 @@ set_target_properties(${PROJECT_NAME}_imu_updater PROPERTIES OUTPUT_NAME imu_upd
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
 target_link_libraries(${PROJECT_NAME}_imu_updater ${catkin_LIBRARIES})
 add_dependencies(${PROJECT_NAME}_imu_updater sensor_msgs_generate_messages_cpp)
+
+
+# JOINT STATES UPDATER NODE
+add_executable(${PROJECT_NAME}_jointstates_updater src/jointstates_updater.cpp )
+set_target_properties(${PROJECT_NAME}_jointstates_updater PROPERTIES OUTPUT_NAME jointstates_updater_node PREFIX "")
+target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
+target_link_libraries(${PROJECT_NAME}_jointstates_updater ${catkin_LIBRARIES})
+add_dependencies(${PROJECT_NAME}_jointstates_updater sensor_msgs_generate_messages_cpp)
 
 
 #set(LOCAL_GTEST_DIR "gtest-1.7.0")

@@ -1,5 +1,12 @@
+# IMU
 imu_pitch_max: 40
 imu_pitch_min: -40
-
 imu_roll_max: 30
 imu_roll_min: -30
+
+# JOINT STATES
+js_position0_threshold: 0.0
+js_position1_threshold: 0.0
+js_position2_threshold: 0.0
+js_position3_threshold: 0.0
+js_position4_threshold: 0.0

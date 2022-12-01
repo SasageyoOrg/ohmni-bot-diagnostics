@@ -5,6 +5,10 @@
   <node pkg="diagnostic_updater" type="imu_updater_node" name="imu_updater">
     <param name="diagnostic_period" value="0.05"/>
   </node>
+
+  <node pkg="diagnostic_updater" type="jointstates_updater_node" name="jointstates_updater">
+    <param name="diagnostic_period" value="0.05"/>
+  </node>
   
 </launch>
 
