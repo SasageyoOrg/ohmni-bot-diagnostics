@@ -6,5 +6,15 @@ analyzers:
       imu:
         type: diagnostic_aggregator/GenericAnalyzer
         path: Imu
-        find_and_remove_prefix: imu
+        find_and_remove_prefix: imu_
+        num_items: 1
+      navcam:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: Camera
+        find_and_remove_prefix: navcam_
+        num_items: 1
+      telecam:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: Camera
+        find_and_remove_prefix: telecam_
         num_items: 1
