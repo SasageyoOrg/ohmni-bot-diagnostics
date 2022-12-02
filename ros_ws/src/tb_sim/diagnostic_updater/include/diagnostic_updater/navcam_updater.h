@@ -3,13 +3,20 @@
 #include <diagnostic_updater/publisher.h>
 #include <sensor_msgs/Image.h> 
 #include <math.h>
+#include <gazebo/sensors/SensorManager.hh>
+#include <gazebo/sensors/Sensor.hh>
+
 #ifdef ERROR
 #undef ERROR
 #endif
 using namespace diagnostic_updater;
+using namespace gazebo;
 
 int seq;
 int navcam_seq_old = 0;
+
+sensors::SensorPtr sensor = sensors::SensorManager::Instance()->GetSensor(
+    "default::tb_sim::base_link::nav_camera");
 
 // Callback function
 void navcam_callback(const sensor_msgs::ImageConstPtr& msg)
@@ -20,6 +27,10 @@ void navcam_callback(const sensor_msgs::ImageConstPtr& msg)
 
 void check_seq(diagnostic_updater::DiagnosticStatusWrapper &stat)
 { 
+
+    if (seq == 100)
+        sensor->SetActive(false);
+    
     if(seq == navcam_seq_old) 
         stat.summaryf(diagnostic_msgs::DiagnosticStatus::WARN, "CAMERA OFF");
     else
@@ -29,6 +40,4 @@ void check_seq(diagnostic_updater::DiagnosticStatusWrapper &stat)
     navcam_seq_old = seq;
     stat.add("Seq", seq);
 }
-
-
 
