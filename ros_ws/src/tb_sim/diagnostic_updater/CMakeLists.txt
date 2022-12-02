@@ -44,6 +44,13 @@ target_link_libraries(${PROJECT_NAME}_jointstates_updater ${catkin_LIBRARIES})
 add_dependencies(${PROJECT_NAME}_jointstates_updater sensor_msgs_generate_messages_cpp)
 
 
+# ODOM UPDATER NODE
+add_executable(${PROJECT_NAME}_odom_updater src/odom_updater.cpp )
+set_target_properties(${PROJECT_NAME}_odom_updater PROPERTIES OUTPUT_NAME odom_updater_node PREFIX "")
+target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
+target_link_libraries(${PROJECT_NAME}_odom_updater ${catkin_LIBRARIES})
+add_dependencies(${PROJECT_NAME}_odom_updater sensor_msgs_generate_messages_cpp)
+
 #set(LOCAL_GTEST_DIR "gtest-1.7.0")
 # gtest could be included in ${catkin_INCLUDE_DIRS}, prepend local gtest include directory so it's searched first
 #include_directories(BEFORE ${LOCAL_GTEST_DIR}/include)

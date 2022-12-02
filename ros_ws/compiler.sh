@@ -18,23 +18,35 @@ launch () {
 }
 
 # compiling the code
-#rm -r build
-#rm -r devel
-catkin_make
+compile () {
+    catkin_make
+    exitcode=$?
+}
 
-exitcode=$?
-
-if [ $exitcode -eq 0 ] ; then
-    # sourcing the catkin setup
-    source devel/setup.bash
-
-    if [ "$1" = "--launch" ] ; then
+if [ "$1" = "--compile" ] || [ $# -eq 0 ] ; then
+    compile
+elif [ "$1" = "--cclean" ] ; then
+    rm -r build/
+    rm -r devel/
+    echo "build dirs removed."
+    compile
+elif [ "$1" = "--launch" ] ; then
+    compile
+    
+    if [ $exitcode -eq 0 ] ; then
+        # sourcing the catkin setup
+        source devel/setup.bash
         launch
-    elif [ "$1" = "--launch-all" ] ; then
-        launch
-        sleep 1
-        gnome-terminal --tab --title=RqtRobotMonitor -- $SHELL -c "rosrun rqt_gui rqt_gui" 
+    else
+        echo "compilation error, exit."
     fi
-else 
-    echo "compilation error, exit."
+elif [ "$1" = "--close" ] ; then
+    APP1PID=`pgrep roslaunch`
+    APP1PPID=`ps j $APP1PID | awk 'NR>1 {print $1}'`
+    kill -9 $APP1PID
+fi
+
+if [ "$2" = "--rqtgui" ] ; then
+    sleep 1
+    gnome-terminal --tab --title=RqtGUI -- $SHELL -c "rosrun rqt_gui rqt_gui" 
 fi
