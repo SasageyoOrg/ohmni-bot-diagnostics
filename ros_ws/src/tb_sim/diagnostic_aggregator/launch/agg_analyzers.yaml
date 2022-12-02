@@ -5,8 +5,13 @@ analyzers:
     analyzers:
       imu:
         type: diagnostic_aggregator/GenericAnalyzer
-        path: Imu
+        path: IMU
         find_and_remove_prefix: imu_
+        num_items: 1
+      jointstates:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: Joint States
+        find_and_remove_prefix: jointstates_
         num_items: 1
       navcam:
         type: diagnostic_aggregator/GenericAnalyzer
