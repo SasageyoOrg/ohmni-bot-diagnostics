@@ -25,14 +25,14 @@ int main(int argc, char **argv)
   diagnostic_updater::FunctionDiagnosticTask check("Checks", 
     boost::bind(&checking, boost::placeholders::_1));
 
-  diagnostic_updater::FunctionDiagnosticTask log("Log", 
-    boost::bind(&logging, boost::placeholders::_1));
+  // diagnostic_updater::FunctionDiagnosticTask log("Log", 
+  //   boost::bind(&logging, boost::placeholders::_1));
   
   diagnostic_updater::CompositeDiagnosticTask odom("ODOM check");
 
   //Creates a new task, registers the task, and returns the instance.
   odom.addTask(&check);
-  odom.addTask(&log);
+  //odom.addTask(&log);
 
   //Add the CompositeDiagnosticTask to our Updater.
   odomUpdater.add(odom);

@@ -23,3 +23,8 @@ analyzers:
         path: Camera
         find_and_remove_prefix: telecam_
         num_items: 1
+      odom:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: Odometry
+        find_and_remove_prefix: odom_
+        num_items: 1

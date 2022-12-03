@@ -82,11 +82,9 @@ void checking(diagnostic_updater::DiagnosticStatusWrapper &stat)
   if(header_stamp_secs < 0) 
     stat.summaryf(diagnostic_msgs::DiagnosticStatus::WARN, "STATUS: BAD [%d]", header_stamp_secs);
   else
-    stat.summaryf(diagnostic_msgs::DiagnosticStatus::OK, "STATUS: OK [%d]", header_stamp_secs); 
-}
+    stat.summaryf(diagnostic_msgs::DiagnosticStatus::OK, "STATUS: OK [%d]", header_stamp_secs);
 
-void logging(diagnostic_updater::DiagnosticStatusWrapper &stat)
-{
+  //LOGGING
   stat.add("header_seq", header_seq);
   stat.add("header_stamp_nsecs", header_stamp_nsecs);
   stat.add("header_stamp_secs", header_stamp_secs);
@@ -106,6 +104,30 @@ void logging(diagnostic_updater::DiagnosticStatusWrapper &stat)
 
   stat.add("twist_twist_linear_x", twist_twist_linear_x);
   stat.add("twist_twist_linear_y", twist_twist_linear_y);
-  stat.add("twist_twist_linear_z", twist_twist_linear_z);
+  stat.add("twist_twist_linear_z", twist_twist_linear_z); 
 }
+
+// void logging(diagnostic_updater::DiagnosticStatusWrapper &stat)
+// {
+//   stat.add("header_seq", header_seq);
+//   stat.add("header_stamp_nsecs", header_stamp_nsecs);
+//   stat.add("header_stamp_secs", header_stamp_secs);
+
+//   stat.add("pose_orientation_w", pose_orientation_w);
+//   stat.add("pose_orientation_x", pose_orientation_x);
+//   stat.add("pose_orientation_y", pose_orientation_y);
+//   stat.add("pose_orientation_z", pose_orientation_z);
+
+//   stat.add("pose_position_x", pose_position_x);
+//   stat.add("pose_position_y", pose_position_y);
+//   stat.add("pose_position_z", pose_position_z);
+
+//   stat.add("twist_twist_angular_x", twist_twist_angular_x);
+//   stat.add("twist_twist_angular_y", twist_twist_angular_y);
+//   stat.add("twist_twist_angular_z", twist_twist_angular_z);
+
+//   stat.add("twist_twist_linear_x", twist_twist_linear_x);
+//   stat.add("twist_twist_linear_y", twist_twist_linear_y);
+//   stat.add("twist_twist_linear_z", twist_twist_linear_z);
+// }
 
