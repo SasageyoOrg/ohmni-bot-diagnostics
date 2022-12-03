@@ -22,5 +22,9 @@
     <param name="diagnostic_period" value="0.05"/>
   </node>
 
+  <node pkg="diagnostic_updater" type="scan_updater_node" name="scan_updater">
+    <param name="diagnostic_period" value="0.05"/>
+  </node>
+
 </launch>
 
