@@ -31,6 +31,9 @@ float twist_twist_linear_x;
 float twist_twist_linear_y;
 float twist_twist_linear_z;
 
+// custom flag
+int headerStampSecs_prev = 0;
+
 // Callback function
 void odom_callback(const nav_msgs::Odometry::ConstPtr& msg)
 { 
@@ -43,6 +46,9 @@ void odom_callback(const nav_msgs::Odometry::ConstPtr& msg)
   new_stamp = new_header.stamp;
   header_stamp_nsecs = new_stamp.nsec;
   header_stamp_secs = new_stamp.sec;
+
+  // flag 
+  headerStampSecs_prev = header_stamp_secs;
 
   // pose
   geometry_msgs::PoseStamped new_pose; 
@@ -79,16 +85,18 @@ void odom_callback(const nav_msgs::Odometry::ConstPtr& msg)
 void checking(diagnostic_updater::DiagnosticStatusWrapper &stat)
 {
   // todo: looking for good tresholds
-  if(header_stamp_secs < 0) 
-    stat.summaryf(diagnostic_msgs::DiagnosticStatus::WARN, "STATUS: BAD [%d]", header_stamp_secs);
+  if(header_stamp_secs == (headerStampSecs_prev + 1))
+    stat.summaryf(diagnostic_msgs::DiagnosticStatus::WARN, "STATUS: BAD [%d/%d]", 
+                  header_stamp_secs, headerStampSecs_prev);
   else
-    stat.summaryf(diagnostic_msgs::DiagnosticStatus::OK, "STATUS: OK [%d]", header_stamp_secs);
+    stat.summaryf(diagnostic_msgs::DiagnosticStatus::OK, "STATUS: OK [%d/%d]", 
+                  header_stamp_secs, headerStampSecs_prev);
 
   //LOGGING
   stat.add("header_seq", header_seq);
   stat.add("header_stamp_nsecs", header_stamp_nsecs);
   stat.add("header_stamp_secs", header_stamp_secs);
-
+  
   stat.add("pose_orientation_w", pose_orientation_w);
   stat.add("pose_orientation_x", pose_orientation_x);
   stat.add("pose_orientation_y", pose_orientation_y);
@@ -105,29 +113,7 @@ void checking(diagnostic_updater::DiagnosticStatusWrapper &stat)
   stat.add("twist_twist_linear_x", twist_twist_linear_x);
   stat.add("twist_twist_linear_y", twist_twist_linear_y);
   stat.add("twist_twist_linear_z", twist_twist_linear_z); 
+
+  stat.add("headerStampSecs_prev", headerStampSecs_prev); // customize
 }
-
-// void logging(diagnostic_updater::DiagnosticStatusWrapper &stat)
-// {
-//   stat.add("header_seq", header_seq);
-//   stat.add("header_stamp_nsecs", header_stamp_nsecs);
-//   stat.add("header_stamp_secs", header_stamp_secs);
-
-//   stat.add("pose_orientation_w", pose_orientation_w);
-//   stat.add("pose_orientation_x", pose_orientation_x);
-//   stat.add("pose_orientation_y", pose_orientation_y);
-//   stat.add("pose_orientation_z", pose_orientation_z);
-
-//   stat.add("pose_position_x", pose_position_x);
-//   stat.add("pose_position_y", pose_position_y);
-//   stat.add("pose_position_z", pose_position_z);
-
-//   stat.add("twist_twist_angular_x", twist_twist_angular_x);
-//   stat.add("twist_twist_angular_y", twist_twist_angular_y);
-//   stat.add("twist_twist_angular_z", twist_twist_angular_z);
-
-//   stat.add("twist_twist_linear_x", twist_twist_linear_x);
-//   stat.add("twist_twist_linear_y", twist_twist_linear_y);
-//   stat.add("twist_twist_linear_z", twist_twist_linear_z);
-// }
 

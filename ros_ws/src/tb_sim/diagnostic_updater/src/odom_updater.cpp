@@ -6,12 +6,6 @@ int main(int argc, char **argv)
   ros::NodeHandle nh; // Construct a NodeHandle Class. This class is used for writing nodes. 
   diagnostic_updater::Updater odomUpdater; // Construct an updater class.
 
-  // nh.getParam("imu_pitch_max", imu_pitch_max); // Get parameters from .yaml file 
-  // nh.getParam("imu_pitch_min", imu_pitch_min);
-
-  // nh.getParam("imu_roll_max", imu_roll_max);
-  // nh.getParam("imu_roll_min", imu_roll_min);
-
 	odomUpdater.setHardwareID("/tb_sim/odom");
 
   /* Subscribing to /tb_sim/imu topic
@@ -24,15 +18,11 @@ int main(int argc, char **argv)
   // Creating tasks using functions with FunctionDiagnosticTask
   diagnostic_updater::FunctionDiagnosticTask check("Checks", 
     boost::bind(&checking, boost::placeholders::_1));
-
-  // diagnostic_updater::FunctionDiagnosticTask log("Log", 
-  //   boost::bind(&logging, boost::placeholders::_1));
   
   diagnostic_updater::CompositeDiagnosticTask odom("ODOM check");
 
   //Creates a new task, registers the task, and returns the instance.
   odom.addTask(&check);
-  //odom.addTask(&log);
 
   //Add the CompositeDiagnosticTask to our Updater.
   odomUpdater.add(odom);
