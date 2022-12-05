@@ -30,9 +30,8 @@ elif [ "$1" = "--cclean" ] ; then
     rm -r devel/
     echo "build dirs removed."
     compile
-elif [ "$1" = "--launch" ] ; then
+elif [ "$1" = "--launch" ] ; then 
     compile
-    
     if [ $exitcode -eq 0 ] ; then
         # sourcing the catkin setup
         source devel/setup.bash
@@ -44,9 +43,25 @@ elif [ "$1" = "--close" ] ; then
     APP1PID=`pgrep roslaunch`
     APP1PPID=`ps j $APP1PID | awk 'NR>1 {print $1}'`
     kill -9 $APP1PID
+elif [ "$1" = "--help" ]; then
+    echo -e "${bold}--clean${normal} \t -> start compiling packages"
+    echo -e "${bold}--cclean${normal} \t -> clean & start compiling packages"
+    echo -e "${bold}--launch${normal} \t -> start simulation"
+    echo -e "${bold}--close${normal} \t -> close all tab"
+    echo -e "\n"
+    echo -e "${bold}.. --launch${normal} \t -> start simulation as the second parameter"
+    echo -e "${bold}.. --rqtgui${normal} \t -> start rqtgui"
+    echo ""
+else
+    echo "Error, this option doesn't exist. Check this: \"./compiler.sh --help\""
 fi
 
-if [ "$2" = "--rqtgui" ] ; then
+if [ "$2" = "--rqtgui" ] || [ "$3" = "--rqtgui" ]; then
     sleep 1
     gnome-terminal --tab --title=RqtGUI -- $SHELL -c "rosrun rqt_gui rqt_gui" 
+fi
+
+if [ "$2" = "--launch" ]; then
+    source devel/setup.bash
+    launch
 fi
