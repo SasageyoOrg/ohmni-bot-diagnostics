@@ -2,23 +2,16 @@ cmake_minimum_required(VERSION 3.0.2)
 project(diagnostic_updater)
 
 # Load catkin and all dependencies required for this package
-find_package(catkin REQUIRED 
-  # gazebo_plugins
-  gazebo_ros
-  diagnostic_msgs 
-  roscpp 
-  std_msgs)
-find_package (gazebo REQUIRED)
+find_package(catkin REQUIRED diagnostic_msgs roscpp std_msgs)
+
 catkin_python_setup()
 
-catkin_package(CATKIN_DEPENDS gazebo_ros diagnostic_msgs roscpp std_msgs 
-              INCLUDE_DIRS include
-	        LIBRARIES ${PROJECT_NAME}
+catkin_package(CATKIN_DEPENDS diagnostic_msgs roscpp std_msgs
+               INCLUDE_DIRS include
+	       LIBRARIES ${PROJECT_NAME}
 )
 
-link_directories(${GAZEBO_LIBRARY_DIRS})
-
-include_directories(include ${catkin_INCLUDE_DIRS} ${GAZEBO_INCLUDE_DIRS})
+include_directories(include ${catkin_INCLUDE_DIRS})
 
 
 # IMU UPDATER NODE
@@ -33,7 +26,7 @@ add_dependencies(${PROJECT_NAME}_imu_updater sensor_msgs_generate_messages_cpp)
 add_executable(${PROJECT_NAME}_navcam_updater src/navcam_updater.cpp )
 set_target_properties(${PROJECT_NAME}_navcam_updater PROPERTIES OUTPUT_NAME navcam_updater_node PREFIX "")
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
-target_link_libraries(${PROJECT_NAME}_navcam_updater ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES} CameraPlugin)
+target_link_libraries(${PROJECT_NAME}_navcam_updater ${catkin_LIBRARIES})
 add_dependencies(${PROJECT_NAME}_navcam_updater sensor_msgs_generate_messages_cpp)
 
 add_executable(${PROJECT_NAME}_telecam_updater src/telecam_updater.cpp )
