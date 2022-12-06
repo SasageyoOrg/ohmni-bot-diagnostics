@@ -10,3 +10,7 @@ js_position1_threshold: 0.0
 js_position2_threshold: 0.0
 js_position3_threshold: 0.0
 js_position4_threshold: 0.0
+
+# SCAN LASER
+scan_threshold_max: 1.5
+scan_threshold_min: 0.40
