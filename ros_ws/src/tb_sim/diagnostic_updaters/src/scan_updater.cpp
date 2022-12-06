@@ -1,30 +1,31 @@
-#include <diagnostic_updater/navcam_updater.h>
+#include <diagnostic_updater/scan_updater.h>
 
 int main(int argc, char **argv)
 {
-    ros::init(argc, argv, "navcam_updater"); // Ros initialization function.
+    ros::init(argc, argv, "scan_updater"); // Ros initialization function.
     ros::NodeHandle nh; // Construct a NodeHandle Class. This class is used for writing nodes. 
-    diagnostic_updater::Updater navcamUpdater; // Construct an updater class.
+    diagnostic_updater::Updater scanUpdater; // Construct an updater class.
 
-    // nh.getParam("navcam_seq_old", navcam_seq_old); // Get parameters from .yaml file 
+    scanUpdater.setHardwareID("/scan");
 
-    navcamUpdater.setHardwareID("/nav_camera/image_raw");
-
-    ros::Subscriber subNavcam = nh.subscribe("/nav_camera/image_raw", 1000, navcam_callback);
+    ros::Subscriber subScan = nh.subscribe("/scan", 1000, scan_callback);
 
     // Creating tasks using functions with FunctionDiagnosticTask
     diagnostic_updater::FunctionDiagnosticTask seq("Sequences",
         boost::bind(&check_seq, boost::placeholders::_1));
+    diagnostic_updater::FunctionDiagnosticTask range("Ranges",
+        boost::bind(&check_range, boost::placeholders::_1));
 
-    diagnostic_updater::CompositeDiagnosticTask bounds("NAV-CAM check");
+    diagnostic_updater::CompositeDiagnosticTask bounds("SCAN check");
 
     //Creates a new task, registers the task, and returns the instance.
     bounds.addTask(&seq);
+    bounds.addTask(&range);
 
     //Add the CompositeDiagnosticTask to our Updater.
-    navcamUpdater.add(bounds);
-    navcamUpdater.broadcast(0, "Initializing NAV-CAM updater");
-    navcamUpdater.force_update();
+    scanUpdater.add(bounds);
+    scanUpdater.broadcast(0, "Initializing SCAN updater");
+    scanUpdater.force_update();
 
   while (nh.ok())
   {
@@ -32,7 +33,7 @@ int main(int argc, char **argv)
     //spinOnce() will call all the callbacks waiting to be called at that point in time.
     ros::spinOnce();
     //Call updater
-    navcamUpdater.update();    
+    scanUpdater.update();    
   }
 
   return 0; 

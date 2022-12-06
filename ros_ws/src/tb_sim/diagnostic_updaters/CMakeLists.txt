@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(diagnostic_updater)
+project(diagnostic_updaters)
 
 # Load catkin and all dependencies required for this package
-find_package(catkin REQUIRED diagnostic_msgs roscpp std_msgs)
+find_package(catkin REQUIRED diagnostic_msgs roscpp std_msgs diagnostic_updater)
 
 catkin_python_setup()
 
