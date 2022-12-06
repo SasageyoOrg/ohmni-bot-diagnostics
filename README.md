@@ -11,10 +11,20 @@
 
 # 📋About <a name = "about"></a>
 
-ROS Diagnostics based monitoring system for Ohmni telepresence robot
+ROS Diagnostics based monitoring system for Ohmni telepresence robot. It features
+diagnostics for the following sensors:
+- Navigation camera
+- Camera
+- Scan sensor
+- IMU (Inertial Measurement Unit)
+- Joint States (Left/ Right wheels, caster, caster wheel, neck)
+- Odometry 
+
+
 # 👩‍💻Installation and Usage <a name="ins-usage"></a>
 
 ### With script files:
+For easy compilation & running, a shell script is provided:
 
 - Build with:
     ```
@@ -34,8 +44,8 @@ ROS Diagnostics based monitoring system for Ohmni telepresence robot
     ./compiler.sh --cclean --launch --rqtgui
     ./compiler.sh --launch --rqtgui
     ```
-
-### Without script files:
+### Without script file:
+If you're having trubles with the script, you can start the simulation manually
 
 1. Build with
     ```
