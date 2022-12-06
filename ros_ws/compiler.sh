@@ -72,6 +72,7 @@ elif [ "$1" = "--close" ] ; then
     else 
         echo "there aren't processes to close"
     fi
+		rosnode kill --all
 
 elif [ "$1" = "--help" ]; then
     echo -e "${bold}./compiler.sh --compile${normal} \t -> compile the catkin workspace"
