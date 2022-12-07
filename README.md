@@ -1,6 +1,16 @@
-# ohmni-bot-diagnostics
+<p align="center">
+  <a href="" rel="noopener">
+  <img width=180px height=200px src="https://i.imgur.com/jrRtO9Z.png" alt="Project logo"></a>
+</p>
 
-## WIP
+<h1 align="center">Monitoring System for Ohmni Telepresence Robot based on ROS DIAGNOSTICS</br><sub></sub></h1>
+
+<div align="center">
+  
+![ROS](https://img.shields.io/ros/v/melodic/diagnostics)
+![UNIVPM](https://img.shields.io/badge/organization-UNIVPM-red)
+![GitHub](https://img.shields.io/github/license/SasageyoOrg/ohmni-bot-diagnostics?color=green)
+</div>
 
 # 📝 Table of Contents
 - [📋 About ](#about-)
@@ -23,8 +33,8 @@ diagnostics for the following sensors:
 
 # 👩‍💻Installation and Usage <a name="ins-usage"></a>
 
-### With script files:
-For easy compilation & running, a shell script is provided:
+### With bash script:
+For easy compilation and running, a bash script is provided:
 
 - Build with:
     ```
@@ -34,7 +44,7 @@ For easy compilation & running, a shell script is provided:
     ```
     ./compiler.sh --cclean
     ```
-- Run **gazebo simulation**, **diagnostic aggregator** & **updater** and the **monitor** with: 
+- Run **gazebo simulation**, **diagnostic aggregator**, **diagnostic updater** and the **rqt monitor** with: 
     ```
     ./compiler.sh --launch
     ```
@@ -44,8 +54,8 @@ For easy compilation & running, a shell script is provided:
     ./compiler.sh --cclean --launch --rqtgui
     ./compiler.sh --launch --rqtgui
     ```
-### Without script file:
-If you're having trubles with the script, you can start the simulation manually
+### Without script:
+If you're having trubles with the script, you can start the simulation manually:
 
 1. Build with
     ```
@@ -102,9 +112,6 @@ src
     │   └── src
     └── tb_teleop
         └── launch
-
-27 directories
-
 ```
 
 # ✍️ Authors <a name = "authors"></a>
