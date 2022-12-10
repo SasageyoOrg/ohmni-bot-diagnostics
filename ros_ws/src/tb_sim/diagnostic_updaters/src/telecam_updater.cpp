@@ -1,37 +1,48 @@
-#include <diagnostic_updater/telecam_updater.h>
+// #include <diagnostic_updater/navcam_updater.h>
+#include <ros/ros.h>
+#include <diagnostic_updater/diagnostic_updater.h>
+#include <diagnostic_updater/publisher.h>
+#include <sensor_msgs/Image.h>
+
+ros::Time stamp;
+
+void telecam_callback(const sensor_msgs::ImageConstPtr& msg)
+{
+	stamp = msg->header.stamp;
+}
 
 int main(int argc, char **argv)
 {
-    ros::init(argc, argv, "telecam_updater"); // Ros initialization function.
-    ros::NodeHandle nh; // Construct a NodeHandle Class. This class is used for writing nodes. 
-    diagnostic_updater::Updater telecamUpdater; // Construct an updater class.
+	ros::init(argc, argv, "telecam_updater"); // Ros initialization function.
+	ros::NodeHandle nh; // Construct a NodeHandle Class. This class is used for writing nodes. 
+	diagnostic_updater::Updater telecamUpdater; // Construct an updater class.
+	telecamUpdater.setHardwareID("/tele_camera/image_raw");
+	ros::Subscriber sub = nh.subscribe("/tele_camera/image_raw", 1000, &telecam_callback);
 
-    telecamUpdater.setHardwareID("/tele_camera/image_raw");
+	double min_freq = 5;
+	double max_freq = 20;
 
-    ros::Subscriber subTelecam = nh.subscribe("/tele_camera/image_raw", 1000, telecam_callback);
+	const double min_ts = 0.001;
+	const double max_ts = 0.2;
 
-    // Creating tasks using functions with FunctionDiagnosticTask
-    diagnostic_updater::FunctionDiagnosticTask seq("Sequences",
-        boost::bind(&check_seq, boost::placeholders::_1));
+	diagnostic_updater::TopicDiagnostic pub1_freq(
+		"/tele_camera/image_raw/", 
+		telecamUpdater,
+		diagnostic_updater::FrequencyStatusParam(&min_freq, &max_freq, 1, 100),
+		diagnostic_updater::TimeStampStatusParam(min_ts, max_ts));
 
-    diagnostic_updater::CompositeDiagnosticTask bounds("TELE-CAM check");
 
-    //Creates a new task, registers the task, and returns the instance.
-    bounds.addTask(&seq);
+	
+	telecamUpdater.force_update();
 
-    //Add the CompositeDiagnosticTask to our Updater.
-    telecamUpdater.add(bounds);
-    telecamUpdater.broadcast(0, "Initializing TELE-CAM updater");
-    telecamUpdater.force_update();
+	while (nh.ok())
+	{
 
-  while (nh.ok())
-  {
-    ros::Duration(0.1).sleep();
-    //spinOnce() will call all the callbacks waiting to be called at that point in time.
-    ros::spinOnce();
-    //Call updater
-    telecamUpdater.update();    
-  }
+		ros::Duration(0.1).sleep();
+		ros::spinOnce();
+		pub1_freq.tick(stamp);
+		telecamUpdater.update();    
 
-  return 0; 
+	}
+	return 0; 
 }
