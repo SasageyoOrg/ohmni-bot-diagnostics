@@ -7,7 +7,7 @@ launch () {
     sleep 1
 
     # launch diagnostic updater
-    gnome-terminal --tab --title=DiagnosticUpdater -- $SHELL -c "source devel/setup.bash; roslaunch diagnostic_updater updaters_launcher.launch"
+    gnome-terminal --tab --title=DiagnosticUpdater -- $SHELL -c "source devel/setup.bash; roslaunch diagnostic_updaters updaters_launcher.launch"
     echo ${!} > /var/tmp/MPRAIGDiagnosticUpdater.pid
     sleep 1
 

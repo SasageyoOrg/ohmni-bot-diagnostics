@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<launch>
+  <rosparam command="load" file="$(find diagnostic_updaters)/src/updaters_params.yaml" />
+
+  <node pkg="diagnostic_updaters" type="imu_updater_node" name="imu_updater">
+    <param name="diagnostic_period" value="0.05"/>
+  </node>
+
+  <node pkg="diagnostic_updaters" type="jointstates_updater_node" name="jointstates_updater">
+    <param name="diagnostic_period" value="0.05"/>
+  </node>
+  
+  <node pkg="diagnostic_updaters" type="navcam_updater_node" name="navcam_updater">
+    <!-- <param name="diagnostic_period" value="0.05"/> -->
+  </node>
+
+  <node pkg="diagnostic_updaters" type="telecam_updater_node" name="telecam_updater">
+    <param name="diagnostic_period" value="0.05"/>
+  </node>
+
+  <!-- <node pkg="diagnostic_updaters" type="odom_updater_node" name="odom_updater">
+    <param name="diagnostic_period" value="0.05"/>
+  </node>
+
+  <node pkg="diagnostic_updaters" type="scan_updater_node" name="scan_updater">
+    <param name="diagnostic_period" value="0.05"/>
+  </node> -->
+
+</launch>
+
