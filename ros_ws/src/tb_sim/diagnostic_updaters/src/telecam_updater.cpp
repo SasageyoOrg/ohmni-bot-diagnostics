@@ -20,15 +20,15 @@ int main(int argc, char **argv)
 	ros::Subscriber sub = nh.subscribe("/tele_camera/image_raw", 1000, &telecam_callback);
 
 	double min_freq = 5;
-	double max_freq = 20;
+	double max_freq = 100;
 
 	const double min_ts = 0.001;
-	const double max_ts = 0.2;
+	const double max_ts = 0.15;
 
 	diagnostic_updater::TopicDiagnostic pub1_freq(
 		"/tele_camera/image_raw/", 
 		telecamUpdater,
-		diagnostic_updater::FrequencyStatusParam(&min_freq, &max_freq, 1, 100),
+		diagnostic_updater::FrequencyStatusParam(&min_freq, &max_freq, 0.1, 5),
 		diagnostic_updater::TimeStampStatusParam(min_ts, max_ts));
 
 
@@ -38,7 +38,7 @@ int main(int argc, char **argv)
 	while (nh.ok())
 	{
 
-		ros::Duration(0.1).sleep();
+		ros::Duration(0.01).sleep();
 		ros::spinOnce();
 		pub1_freq.tick(stamp);
 		telecamUpdater.update();    

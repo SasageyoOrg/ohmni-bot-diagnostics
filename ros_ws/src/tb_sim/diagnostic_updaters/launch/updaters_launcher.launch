@@ -15,16 +15,16 @@
   </node>
 
   <node pkg="diagnostic_updaters" type="telecam_updater_node" name="telecam_updater">
-    <param name="diagnostic_period" value="0.05"/>
+    <!-- <param name="diagnostic_period" value="0.05"/> -->
   </node>
 
-  <!-- <node pkg="diagnostic_updaters" type="odom_updater_node" name="odom_updater">
+  <node pkg="diagnostic_updaters" type="odom_updater_node" name="odom_updater">
     <param name="diagnostic_period" value="0.05"/>
   </node>
 
   <node pkg="diagnostic_updaters" type="scan_updater_node" name="scan_updater">
     <param name="diagnostic_period" value="0.05"/>
-  </node> -->
+  </node>
 
 </launch>
 

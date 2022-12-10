@@ -20,10 +20,10 @@ int main(int argc, char **argv)
 	ros::Subscriber sub = nh.subscribe("/nav_camera/image_raw", 1000, &navcam_callback);
 
 	double min_freq = 5;
-	double max_freq = 20;
+	double max_freq = 100;
 
 	const double min_ts = 0.001;
-	const double max_ts = 0.2;
+	const double max_ts = 0.15;
 
 	diagnostic_updater::TopicDiagnostic pub1_freq(
 		"/nav_camera/image_raw/", 
@@ -38,7 +38,7 @@ int main(int argc, char **argv)
 	while (nh.ok())
 	{
 
-		ros::Duration(0.1).sleep();
+		ros::Duration(0.01).sleep();
 		ros::spinOnce();
 		pub1_freq.tick(stamp);
 		navcamUpdater.update();    
